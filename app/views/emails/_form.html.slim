@@ -1,0 +1,15 @@
+.form-row
+  .col-lg.form-group
+    = label_tag :receivers, "Receivers"
+    = text_field_tag "receivers", nil, { :include_blank => true, :multiple => true ,class: 'form-control mb-2 chosen-select', placeholder: "please add comma separated emails Ex: mail1@mail.com, mail2@mail.com "}
+.form-row
+  .col-lg.form-group
+    = label_tag :subject
+    = text_field_tag :subject, nil, class: 'form-control', required: true, placeholder: "Subject"
+.form-row
+  .col-lg.form-group
+    = label_tag :body
+    = text_area_tag :body, nil , {class: 'form-control', required: true, placeholder: "Body"}
+.form-row
+  .col-lg-2.form-group
+    = button_tag 'Send', type: 'submit', class: 'btn btn-primary btn-block', data: { confirm: 'are you sure' }

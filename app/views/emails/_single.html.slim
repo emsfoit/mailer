@@ -1,0 +1,15 @@
+.col-lg-12.mb-2
+  .p-3.border
+    .d-flex
+      .mr-2
+        .h5.text-info = l email.created_at, format: :short
+        .h5.text-dark style="font-size: 15px" = "state: #{email.state}"
+        .h5.text-dark style="font-size: 15px" = "to:" + " " + email.receivers.join(', ')
+        .h5.text-dark style="font-size: 15px" = "subject: #{email.subject}"
+        .mt-2 style="font-size: 20px; font-weight: 500; "
+          = email.body
+      .ml-auto.text-center
+        .align-bottom.mt-2
+          = link_to "Remove", email_path(email),
+                  data: { confirm: 'Are you sure' },
+                  method: :delete

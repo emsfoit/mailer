@@ -1,0 +1,13 @@
+.box-edit-link
+.box
+  .h1.d-flex.w-100
+    | E-Mails
+  .row.ml-1
+    .my-3
+      = link_to "Send E-Mail".html_safe,
+              new_email_path,
+              class: 'btn btn-primary'
+  .row
+    .col-12.my-2
+    - @emails.each do |email|
+      = render 'single', email: email
