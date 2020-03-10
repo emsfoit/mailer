@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :emails
-  root to: 'emails#index'
+  root to: 'emails#new'
   mount LetterOpenerWeb::Engine, at: "/letter_opener"
 end
