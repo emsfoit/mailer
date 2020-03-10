@@ -1,0 +1,63 @@
+version: '3'
+services:
+  mailer_app: &web
+    container_name: mailer_app
+    build:
+      context: .
+    volumes:
+      - .:/app
+    command: bundle exec rails server -p 3000 -b 0.0.0.0
+    # do stuff such as `byebug` or `binding.pry`:
+    stdin_open: true
+    # Allows us to send signals (CTRL+C, CTRL+P + CTRL+Q) into the container:
+    tty: true
+    working_dir: /app
+    environment:
+      PG_USER: postgres
+      PG_HOST: postgres_mailer_app
+      PG_PASS: password
+      RAILS_ENV: development
+      RACK_ENV: development
+      API_SERVER : 'http://localhost:3000'
+      SECRET_KEY_BASE: 103377ba0fb223501a2ce38fce7f352d74dfdc7511b48ae3bbc116c623772290549119317394ceb0571ff796bad7bfdba9bc61b8a81c1f4925df758d914ac06f
+      RAILS_LOG_TO_STDOUT: "true"
+      RAILS_SERVE_STATIC_FILES: "true"
+      LOGSTASH_URL: logstash
+      REDIS_URL: redis://redis:6379/1
+      RESQUE_REDIS: redis:6379
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - backend
+  redis:
+    container_name: redis_mailer_app
+    image: redis
+    networks:
+      - backend
+
+  postgres:
+    container_name: postgres_mailer_app
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mailer_app_development
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - backend
+
+volumes:
+  elasticsearch:
+    driver: local
+  bundle: {}
+  postgres:
+    driver: local
+
+networks:
+  backend:
+    driver: bridge
+  elasticstack:
