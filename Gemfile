@@ -29,7 +29,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 # slim template
 gem 'slim'
-
+# mjml for mail
+gem 'mjml-rails'
 #bootstrap
 gem 'bootstrap', '~> 4.4.1'
 group :development, :test do
@@ -43,6 +44,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'letter_opener'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
